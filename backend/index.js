@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 5000;
 
-// Sample Login API
+// Login API
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -17,6 +17,32 @@ app.post("/api/login", (req, res) => {
   }
 
   res.status(200).json({ message: "Login successful", token: "mock-jwt-token" });
+});
+
+
+console.log("Message API registered");
+
+
+
+// Chat Message Save API
+app.post("/api/message", (req, res) => {
+
+
+    console.log("Incoming message request:", req.body);
+
+  const { user, message } = req.body;
+
+  if (!user || !message) {
+    return res.status(400).json({ error: "User and message are required" });
+  }
+
+  res.status(200).json({
+    status: "Message saved",
+    data: {
+      user,
+      message
+    }
+  });
 });
 
 app.listen(PORT, () => {
